@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login Page | HMS</title>
+  <style>
+ 
+    body {
+      font-family: 'Roboto', Arial, sans-serif;
+      background-color: #f3f4f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+  
+    .login-form {
+      background-color: #ffffff;
+      padding: 40px 45px;
+      border-radius: 14px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      border-top: 5px solid #007bff; 
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #444;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 18px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+      transition: all 0.3s ease;
+    }
+
+    input:focus {
+      border-color: #e63946; 
+      box-shadow: 0 0 6px rgba(230, 57, 70, 0.3);
+      outline: none;
+    }
+
+ 
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff; 
+      transform: translateY(-2px);
+    }
+
+ 
+    .forgot-password {
+      display: block;
+      text-align: center;
+      margin-top: 15px;
+      color: #007bff;
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.3s ease;
+    }
+
+    .forgot-password:hover {
+      color: #e63946; 
+      text-decoration: underline;
+    }
+
+ 
+    @media (max-width: 480px) {
+      .login-form {
+        padding: 30px 25px;
+      }
+
+      h2 {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <form class="login-form">
+    <h2>Log In</h2>
+    
+    <label for="username">Username / Email</label>
+    <input type="text" id="username" name="username" placeholder="Enter your username or email" required />
+
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" placeholder="Enter your password" required />
+
+    <label for="otp">OTP (One-Time Password)</label>
+    <input type="text" id="otp" name="otp" placeholder="Enter your OTP if required" />
+
+    <button type="submit">Log In</button>
+
+    <a href="#" class="forgot-password">Forgot Password?</a>
+  </form>
+
+</body>
+</html>

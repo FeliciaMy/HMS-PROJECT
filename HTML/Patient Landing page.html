@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Patient Portal | Hospital Management System</title>
+  <style>
+   
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #002b5c, #b30000);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px 20px;
+      border-bottom: 3px solid #fff;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      margin: 0;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    header p {
+      color: #e0f0ff;
+      margin-top: 8px;
+      font-size: 1rem;
+    }
+
+   
+    .hero {
+      text-align: center;
+      padding: 40px 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero h2 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 1rem;
+      color: #e0f0ff;
+      line-height: 1.6;
+    }
+
+    
+    .modules {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 25px;
+      padding: 50px 30px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .module {
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 2px solid #fff;
+      border-radius: 15px;
+      text-align: center;
+      padding: 25px 20px;
+      transition: all 0.3s ease;
+    }
+
+    .module:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-6px);
+      box-shadow: 0 8px 18px rgba(0, 43, 92, 0.3);
+    }
+
+    .module h3 {
+      color: #ff4d4d;
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
+
+    .module p {
+      color: #e0f0ff;
+      font-size: 0.95rem;
+      line-height: 1.4;
+      margin-bottom: 15px;
+    }
+
+    .module a {
+      display: inline-block;
+      text-decoration: none;
+      background: linear-gradient(90deg, #002b5c, #b30000);
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: 0.3s ease;
+    }
+
+    .module a:hover {
+      background: linear-gradient(90deg, #b30000, #002b5c);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    footer {
+      background-color: #001f3d;
+      text-align: center;
+      padding: 20px;
+      border-top: 3px solid #b30000;
+      color: #e0f0ff;
+      font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.7rem; }
+      .hero h2 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Welcome to Your Patient Portal</h1>
+    <p>Manage your health information securely with the Hospital Management System</p>
+  </header>
+
+  <section class="hero">
+    <h2>Hi, Patient </h2>
+    <p>
+      Access your personal healthcare services below. You can view and update your details,
+      schedule appointments, check your bills, and download your medical reports—all in one place.
+    </p>
+  </section>
+
+  <section class="modules">
+    <div class="module">
+      <h3>Patient Management</h3>
+      <p>View or update your personal and medical information.</p>
+      <a href="#">Access</a>
+    </div>
+
+    <div class="module">
+      <h3>Appointment Scheduler</h3>
+      <p>Book, view, or reschedule your hospital appointments with ease.</p>
+      <a href="#">Schedule</a>
+    </div>
+
+    <div class="module">
+      <h3>Billing Processor</h3>
+      <p>View outstanding bills, download invoices, or make secure payments.</p>
+      <a href="#">Manage Bills</a>
+    </div>
+
+    <div class="module">
+      <h3>Reporting Engine</h3>
+      <p>Access and download your lab results, prescriptions, and reports.</p>
+      <a href="#">View Reports</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Hospital Management System | Empowering Smart Healthcare</p>
+  </footer>
+
+</body>
+</html>

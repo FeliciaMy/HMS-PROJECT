@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Dedicated Doctors</title>
+  <style>
+   
+    .doctors {
+      background: linear-gradient(135deg, #002b5c, #b30000);
+      color: #fff;
+      padding: 60px 20px;
+      text-align: center;
+      font-family: "Poppins", sans-serif;
+    }
+
+  
+    .doctors h2 {
+      font-size: 2rem;
+      margin-bottom: 40px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      border-bottom: 3px solid #fff;
+      display: inline-block;
+      padding-bottom: 8px;
+    }
+
+   
+    .doctor-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    
+    .doctor {
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 2px solid #fff;
+      border-radius: 15px;
+      padding: 20px;
+      transition: all 0.3s ease;
+    }
+
+    
+    .doctor:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 43, 92, 0.3);
+    }
+
+    
+    .doctor h3 {
+      color: #ff4d4d; 
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
+
+    
+    .doctor p {
+      color: #e0f0ff;
+      margin: 5px 0;
+      line-height: 1.5;
+      font-size: 0.95rem;
+    }
+
+    
+    @media (max-width: 768px) {
+      .doctors h2 {
+        font-size: 1.5rem;
+      }
+      .doctor {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  
+  <section class="doctors" id="doctors">
+    <h2>Our Dedicated Doctors</h2>
+    <div class="doctor-list">
+
+      <div class="doctor">
+        <h3>Dr. Thabo Mokoena</h3>
+        <p><strong>Specialization:</strong> Cardiology</p>
+        <p>“Passionate about saving lives through precision cardiac care and patient education.”</p>
+      </div>
+
+      <div class="doctor">
+        <h3>Dr. Ayesha Patel</h3>
+        <p><strong>Specialization:</strong> Pediatrics</p>
+        <p>“Dedicated to ensuring every child receives compassionate and quality healthcare.”</p>
+      </div>
+
+      <div class="doctor">
+        <h3>Dr. Lerato Khumalo</h3>
+        <p><strong>Specialization:</strong> General Surgery</p>
+        <p>“Committed to surgical excellence and post-operative patient recovery.”</p>
+      </div>
+
+      <div class="doctor">
+        <h3>Dr. Sipho Dlamini</h3>
+        <p><strong>Specialization:</strong> Orthopedics</p>
+        <p>“Focused on restoring mobility and improving the quality of life for all patients.”</p>
+      </div>
+
+    </div>
+  </section>
+</body>
+</html>

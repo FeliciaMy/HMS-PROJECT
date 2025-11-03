@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hospital Management System</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,900;1,700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --normal-font: 400;
+      --bold-font: 600;
+      --bolder-font: 900;
+      --primary-color: #3498db;
+      --secondary-color: #e74c3c;
+      --line-height: 1.6;
+      --transition: 0.4s ease-in;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: var(--transition);
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    a {
+      text-decoration: none;
+      color: var(--primary-color);
+    }
+
+    a:hover {
+      color: var(--secondary-color);
+    }
+
+    .cross {
+      color: var(--secondary-color);
+    }
+
+    .P {
+      color: var(--primary-color);
+    }
+
+    .HMS {
+      color: var(--secondary-color);
+    }
+
+    /* Navigation */
+    nav {
+      background: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+      box-shadow: 2px 3px 2px #f1f1f1;
+      position: sticky;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+    }
+
+    .logo h1 {
+      font-size: 2rem;
+      font-weight: var(--bold-font);
+    }
+
+    nav ul {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-item {
+      margin-left: 2rem;
+    }
+
+    .nav-link {
+      font-weight: var(--bold-font);
+    }
+
+
+    .hamburger {
+      display: none; /
+    }
+
+    .bar {
+      display: block;
+      height: 3px;
+      width: 25px;
+      margin: 4px auto;
+      background-color: var(--primary-color);
+    }
+
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.9rem;
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+
+    .intro-text h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      line-height: var(--line-height);
+      font-size: 1.2rem;
+    }
+
+   
+    .btn {
+      margin-top: 1rem;
+      display: inline-block;
+      padding: 0.8rem 1rem;
+      border: none;
+      font-size: 1.2rem;
+      border-radius: 5px;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .red {
+      background-color: var(--secondary-color);
+      margin-right: 1.5rem;
+    }
+
+    .blue {
+      background-color: var(--primary-color);
+    }
+
+   
+    .about {
+      max-width: 900px;
+      margin: 3rem auto;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .about h3 {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .about p {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      line-height: var(--line-height);
+    }
+
+  
+    @media (max-width: 768px) {
+      .hero {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      nav ul {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+      }
+
+      nav ul.active {
+        display: flex;
+      }
+
+      .hamburger {
+        display: block;
+        cursor: pointer;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#" class="logo">
+      <h1>
+        <span class="P">P</span><span class="HMS">HMS</span><span class="cross">+</span>
+      </h1>
+    </a>
+
+    <ul id="nav-menu">
+      <li class="nav-item"><a href="#about" class="nav-link">About Us</a></li>
+      <li class="nav-item"><a href="#Hospitals" class="nav-link">Hospitals</a></li>
+      <li class="nav-item"><a href="#Doctors" class="nav-link">Doctors</a></li>
+      <li class="nav-item"><a href="#Newsletter" class="nav-link">Newsletter</a></li>
+    </ul>
+
+    <div class="hamburger" id="hamburger">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="intro-text">
+      <h1><span class="Smart">Smart Care Starts With Smart Systems</span></h1>
+      <p>Powering Tomorrow's Hospitals Today</p>
+      <a class="btn red" href="register.html">Register</a>
+      <a class="btn blue" href="login.html">Login</a>
+    </div>
+
+    <div class="i-frame">
+      <iframe
+        width="560"
+        height="315"
+        src="https://www.youtube.com/embed/KmYm6zphh_A"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <h3>Watch Your Health</h3>
+    
+    <p>
+      Our Hospital Management System streamlines administrative and clinical processes through advanced automation.
+    </p>
+    <h3>No More Waiting in Queues</h3>
+    <p>
+      This system reduces manual errors, saves time, and improves overall hospital efficiency.
+    </p>
+  </section>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('nav-menu');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navMenu.classList.toggle('active');
+    });
+
+    document.querySelectorAll('.nav-link').forEach(n =>
+      n.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+      })
+    );
+  </script>
+
+</body>
+</html>
