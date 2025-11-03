@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hospital Home</title>
+</head>
+<body>
+  <h1>Welcome to Our Hospital</h1>
+
+  <nav>
+    <a href="about.html">About Us</a> |
+    <a href="doctors.html">Doctors</a> |
+    <a href="hospitals.html">Hospitals</a> |
+    <a href="newsletter.html">Newsletter</a>
+  </nav>
+
+  <section>
+    <h2>Get Started</h2>
+    <a href="register.html">Register</a>
+    <a href="login.html">Log In</a>
+  </section>
+</body>
+</html>
