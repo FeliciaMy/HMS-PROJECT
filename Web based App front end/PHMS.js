@@ -1,0 +1,300 @@
+PHMS
+
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+
+const collections = ["Appointments", "Doctors", "Medical Records", "Patients", "User"];
+const PAGE_SIZE = 10;
+
+function App() {
+  const [selectedCollection, setSelectedCollection] = useState("Appointments");
+  const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalData, setModalData] = useState({});
+  const [isEditing, setIsEditing] = useState(false);
+  const [fields, setFields] = useState([]);
+
+  useEffect(() => {
+    fetchData(selectedCollection);
+  }, [selectedCollection]);
+
+  useEffect(() => {
+    handleSearchAndSort();
+  }, [data, searchQuery, sortConfig]);
+
+  const fetchData = async (collection) => {
+    setLoading(true);
+    setError("");
+    setSearchQuery("");
+    setCurrentPage(1);
+    try {
+      const response = await axios.get(`http://localhost:5000/api/${collection}`);
+      const records = response.data || [];
+      setData(records);
+      setFields(records.length > 0 ? Object.keys(records[0]) : []);
+    } catch (err) {
+      console.error(err);
+      setError("Failed to fetch data.");
+      setData([]);
+      setFields([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSearchAndSort = () => {
+    let tempData = [...data];
+    if (searchQuery) {
+      tempData = tempData.filter((item) =>
+        Object.values(item).some(
+          (val) => val != null && val.toString().toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      );
+    }
+    if (sortConfig.key) {
+      tempData.sort((a, b) => {
+        const aVal = a[sortConfig.key] ?? "";
+        const bVal = b[sortConfig.key] ?? "";
+        if (aVal < bVal) return sortConfig.direction === "asc" ? -1 : 1;
+        if (aVal > bVal) return sortConfig.direction === "asc" ? 1 : -1;
+        return 0;
+      });
+    }
+    setFilteredData(tempData);
+  };
+
+  const requestSort = (key) => {
+    let direction = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") direction = "desc";
+    setSortConfig({ key, direction });
+  };
+
+  const openAddModal = () => {
+    const blankData = {};
+    fields.forEach((f) => (blankData[f] = ""));
+    setModalData(blankData);
+    setIsEditing(false);
+    setIsModalOpen(true);
+  };
+
+  const openEditModal = (item) => {
+    setModalData(item);
+    setIsEditing(true);
+    setIsModalOpen(true);
+  };
+
+  const handleDelete = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this record?")) return;
+    try {
+      await axios.delete(`http://localhost:5000/api/${selectedCollection}/${id}`);
+      fetchData(selectedCollection);
+    } catch (err) {
+      console.error(err);
+      setError("Failed to delete record.");
+    }
+  };
+
+  const handleModalSubmit = async (e) => {
+    e.preventDefault();
+    for (const key of fields) {
+      if (!modalData[key] && key !== "id") {
+        alert(`Field "${key}" cannot be empty.`);
+        return;
+      }
+    }
+    try {
+      if (isEditing) {
+        await axios.put(
+          `http://localhost:5000/api/${selectedCollection}/${modalData.id}`,
+          modalData
+        );
+      } else {
+        await axios.post(`http://localhost:5000/api/${selectedCollection}`, modalData);
+      }
+      setIsModalOpen(false);
+      fetchData(selectedCollection);
+    } catch (err) {
+      console.error(err);
+      setError("Failed to save record.");
+    }
+  };
+
+  const renderTable = () => {
+    if (filteredData.length === 0) return <p className="text-gray-500">No records found.</p>;
+
+    const allKeys = fields.length > 0 ? fields : Array.from(new Set(filteredData.flatMap(Object.keys)));
+
+    const startIndex = (currentPage - 1) * PAGE_SIZE;
+    const paginatedData = filteredData.slice(startIndex, startIndex + PAGE_SIZE);
+    const totalPages = Math.ceil(filteredData.length / PAGE_SIZE);
+
+    return (
+      <>
+        <div className="flex items-center justify-between mb-4">
+          <button
+            onClick={openAddModal}
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          >
+            Add New
+          </button>
+          <input
+            type="text"
+            placeholder="Search..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="border px-3 py-2 rounded w-1/2"
+          />
+        </div>
+
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-white border border-gray-200">
+            <thead className="bg-gray-100">
+              <tr>
+                {allKeys.map((key) => (
+                  <th
+                    key={key}
+                    className="text-left px-4 py-2 cursor-pointer select-none"
+                    onClick={() => requestSort(key)}
+                  >
+                    {key}{" "}
+                    {sortConfig.key === key ? (
+                      sortConfig.direction === "asc" ? "▲" : "▼"
+                    ) : null}
+                  </th>
+                ))}
+                <th className="px-4 py-2">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {paginatedData.map((item, idx) => (
+                <tr key={idx} className="border-t hover:bg-gray-50">
+                  {allKeys.map((key, i) => (
+                    <td key={i} className="px-4 py-2">
+                      {item[key] != null ? item[key].toString() : ""}
+                    </td>
+                  ))}
+                  <td className="px-4 py-2 space-x-2">
+                    <button
+                      onClick={() => openEditModal(item)}
+                      className="bg-yellow-400 text-white px-2 py-1 rounded hover:bg-yellow-500"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleDelete(item.id)}
+                      className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {totalPages > 1 && (
+          <div className="flex justify-center items-center mt-4 space-x-4">
+            <button
+              onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
+              disabled={currentPage === 1}
+              className="bg-gray-300 px-3 py-1 rounded disabled:opacity-50"
+            >
+              Previous
+            </button>
+            <span>
+              Page {currentPage} of {totalPages}
+            </span>
+            <button
+              onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
+              disabled={currentPage === totalPages}
+              className="bg-gray-300 px-3 py-1 rounded disabled:opacity-50"
+            >
+              Next
+            </button>
+          </div>
+        )}
+
+        {/* Modal */}
+        {isModalOpen && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+            <div className="bg-white rounded-lg p-6 w-96 max-h-[80vh] overflow-y-auto">
+              <h3 className="text-xl font-semibold mb-4">{isEditing ? "Edit Record" : "Add New Record"}</h3>
+              <form onSubmit={handleModalSubmit} className="space-y-3">
+                {allKeys.map(
+                  (key) =>
+                    key !== "id" && (
+                      <div key={key}>
+                        <label className="block mb-1 font-medium">{key}</label>
+                        <input
+                          type="text"
+                          value={modalData[key] || ""}
+                          onChange={(e) =>
+                            setModalData({ ...modalData, [key]: e.target.value })
+                          }
+                          className="w-full border px-3 py-2 rounded"
+                        />
+                      </div>
+                    )
+                )}
+                <div className="flex justify-end space-x-2 mt-4">
+                  <button
+                    type="submit"
+                    className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+                  >
+                    {isEditing ? "Update" : "Add"}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setIsModalOpen(false)}
+                    className="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+      </>
+    );
+  };
+
+  return (
+    <div className="flex h-screen font-sans">
+      <nav className="w-64 border-r border-gray-200 p-4 bg-gray-50">
+        <h3 className="text-lg font-bold mb-4">Collections</h3>
+        {collections.map((col) => (
+          <div
+            key={col}
+            onClick={() => setSelectedCollection(col)}
+            className={`mb-2 p-2 rounded cursor-pointer ${
+              selectedCollection === col ? "bg-blue-500 text-white" : "hover:bg-gray-200"
+            }`}
+          >
+            {col}
+          </div>
+        ))}
+      </nav>
+      <main className="flex-1 p-6 overflow-auto">
+        <h2 className="text-2xl font-bold mb-4">{selectedCollection}</h2>
+        {loading ? (
+          <p className="text-gray-500">Loading...</p>
+        ) : error ? (
+          <p className="text-red-500">{error}</p>
+        ) : (
+          renderTable()
+        )}
+      </main>
+    </div>
+  );
+}
+
+export default App;
