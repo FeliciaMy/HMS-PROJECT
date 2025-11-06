@@ -67,9 +67,9 @@ See `/documentation/api-documentation.pdf`
 
 ## Contributors
 
-- [Your Name]
-- [Team Member 2]
-- [Team Member 3]
+- Felicia Mayeyane
+- Ayanda Masilela
+
 
 ## License
 
