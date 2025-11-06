@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hospital Management System</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+  <!-- Login Page -->
+  <div id="loginPage" class="page active">
+    <div class="login-container">
+      <div class="login-card">
+        <h1>Hospital Management System</h1>
+        <h2>Login</h2>
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+          </div>
+          <button type="submit" class="btn-primary">Login</button>
+          <div id="loginError" class="error-message"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dashboard Page -->
+  <div id="dashboardPage" class="page">
+    <nav class="sidebar">
+      <div class="sidebar-header">
+        <h2>HMS</h2>
+      </div>
+      <ul class="nav-menu">
+        <li><a href="#" data-page="dashboard" class="nav-link active">Dashboard</a></li>
+        <li><a href="#" data-page="patients" class="nav-link">Patients</a></li>
+        <li><a href="#" data-page="appointments" class="nav-link">Appointments</a></li>
+        <li><a href="#" data-page="medical-records" class="nav-link">Medical Records</a></li>
+        <li><a href="#" data-page="inventory" class="nav-link">Inventory</a></li>
+        <li><a href="#" data-page="billing" class="nav-link">Billing</a></li>
+        <li><a href="#" data-page="reports" class="nav-link">Reports</a></li>
+      </ul>
+      <div class="sidebar-footer">
+        <button id="logoutBtn" class="btn-logout">Logout</button>
+      </div>
+    </nav>
+
+    <main class="main-content">
+      <header class="top-bar">
+        <h1 id="pageTitle">Dashboard</h1>
+        <div class="user-info">
+          <span id="userName"></span>
+          <span id="userRole"></span>
+        </div>
+      </header>
+
+      <div class="content-area">
+        <!-- Dashboard Content -->
+        <div id="dashboardContent" class="content-section active">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <h3>Total Patients</h3>
+              <p class="stat-number" id="totalPatients">0</p>
+            </div>
+            <div class="stat-card">
+              <h3>Today's Appointments</h3>
+              <p class="stat-number" id="todayAppointments">0</p>
+            </div>
+            <div class="stat-card">
+              <h3>Available Doctors</h3>
+              <p class="stat-number" id="availableDoctors">0</p>
+            </div>
+            <div class="stat-card">
+              <h3>Low Stock Items</h3>
+              <p class="stat-number" id="lowStockItems">0</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Patients Content -->
+        <div id="patientsContent" class="content-section">
+          <div class="section-header">
+            <h2>Patient Management</h2>
+            <button class="btn-primary" id="addPatientBtn">Add New Patient</button>
+          </div>
+          <div class="search-bar">
+            <input type="text" id="patientSearch" placeholder="Search patients...">
+            <button class="btn-secondary" id="searchPatientBtn">Search</button>
+          </div>
+          <div id="patientsList" class="data-table"></div>
+        </div>
+
+        <!-- Add more content sections... -->
+      </div>
+    </main>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
