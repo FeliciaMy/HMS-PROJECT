@@ -65,10 +65,6 @@ npm run dev
 
 See `/documentation/api-documentation.pdf`
 
-## Contributors
-
-- Felicia Mayeyane
-- Ayanda Masilela
 
 
 ## License
