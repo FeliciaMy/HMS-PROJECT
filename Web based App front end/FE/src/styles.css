@@ -2,8 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-:root { --primary: #2563eb; }
+/* Custom primary color */
+:root {
+  --primary: #2563eb;
+}
 
-.btn { padding: .5rem 1rem; border-radius: .375rem; border: 1px solid transparent; cursor: pointer; }
-.btn-primary { background: var(--primary); color: white; }
-.container { max-width: 1100px; margin: 0 auto; }
+/* Button styles */
+.btn {
+  @apply px-4 py-2 rounded border border-transparent cursor-pointer;
+}
+
+.btn-primary {
+  @apply text-white;
+  background-color: var(--primary);
+}
+
+/* Container max width */
+.container {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
