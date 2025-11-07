@@ -1,15 +1,36 @@
-import React from 'react'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modal Example</title>
+  <style>
+    /* Modal background overlay */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
 
-export default function Modal({ title, children, onClose }){
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg p-6 w-96 max-h-[80vh] overflow-auto">
-        <div className="flex justify-between items-center mb-4">
-          <h3 className="text-lg font-semibold">{title}</h3>
-          <button onClick={onClose} className="text-gray-500">Close</button>
-        </div>
-        {children}
-      </div>
-    </div>
-  )
-}
+    .modal-overlay.active {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    /* Modal box */
+    .modal {
+      background: white;
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      width: 24rem; /* same as w-96 */
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    }
