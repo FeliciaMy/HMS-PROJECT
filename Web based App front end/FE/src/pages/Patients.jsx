@@ -1,91 +1,46 @@
-import React, { useEffect, useState } from 'react'
-import api from '../api'
-import Modal from '../components/Modal'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Patient Portal | HMS</title>
+<link rel="stylesheet" href="../css/portals.css" />
+</head>
+<body>
+<header class="portal-header">
+<h1>Patient Portal</h1>
+<div class="portal-actions">
+<span id="username">—</span>
+<button id="logoutBtn" class="btn small">Logout</button>
+</div>
+</header>
 
-export default function Patients(){
-  const [patients,setPatients]=useState([])
-  const [loading,setLoading]=useState(false)
-  const [showModal,setShowModal]=useState(false)
-  const [editing,setEditing]=useState(null)
-  const [form,setForm]=useState({ patientId:'', personalInfo:{ firstName:'', lastName:'', gender:'', phone:'' }, age:'' })
 
-  useEffect(()=>{ load() }, [])
+<main class="portal-main">
+<section class="panel">
+<h2>Your Appointments</h2>
+<table id="appointmentsTable" class="table">
+<thead><tr><th>ID</th><th>Doctor</th><th>Date</th><th>Status</th></tr></thead>
+<tbody></tbody>
+</table>
+</section>
 
-  const load = async ()=>{ setLoading(true); try{ const r = await api.getPatients(1,200); setPatients(r.patients || r) }catch(e){ console.error(e) } setLoading(false) }
 
-  const openAdd = ()=>{ setEditing(null); setForm({ patientId:'', personalInfo:{ firstName:'', lastName:'', gender:'', phone:'' }, age:'' }); setShowModal(true) }
-  const openEdit = (p)=>{ setEditing(p._id); setForm({...p}); setShowModal(true) }
+<section class="panel">
+<h2>Book Appointment</h2>
+<form id="bookForm" class="form-inline">
+<label>Doctor ID</label>
+<input id="doctorId" required />
+<label>Date & Time</label>
+<input id="apptDate" type="datetime-local" required />
+<button type="submit" class="btn">Book</button>
+</form>
+</section>
+</main>
 
-  const save = async ()=>{
-    try{
-      if(editing) await api.updatePatient(editing, form)
-      else await api.createPatient(form)
-      setShowModal(false)
-      await load()
-    }catch(e){ alert(e.message||'Save failed') }
-  }
 
-  const remove = async (id)=>{ if(!confirm('Delete?')) return; try{ await api.deletePatient(id); await load() }catch(e){ alert(e.message||'Delete failed') } }
-
-  return (
-    <div>
-      <div className="flex justify-between items-center mb-4">
-        <h1 className="text-xl font-semibold">Patients</h1>
-        <div>
-          <button className="btn btn-primary" onClick={openAdd}>Add Patient</button>
-        </div>
-      </div>
-
-      <div className="bg-white rounded shadow overflow-auto">
-        <table className="w-full text-left">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="px-4 py-2">Patient ID</th>
-              <th className="px-4 py-2">Name</th>
-              <th className="px-4 py-2">Age</th>
-              <th className="px-4 py-2">Phone</th>
-              <th className="px-4 py-2">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {loading ? <tr><td colSpan={5} className="p-4">Loading...</td></tr> : (
-              patients.map(p => (
-                <tr key={p._id} className="hover:bg-gray-50">
-                  <td className="px-4 py-2 border">{p.patientId}</td>
-                  <td className="px-4 py-2 border">{p.personalInfo?.firstName} {p.personalInfo?.lastName}</td>
-                  <td className="px-4 py-2 border">{p.age || 'N/A'}</td>
-                  <td className="px-4 py-2 border">{p.personalInfo?.phone}</td>
-                  <td className="px-4 py-2 border">
-                    <button className="btn btn-small mr-2" onClick={()=>openEdit(p)}>Edit</button>
-                    <button className="btn btn-small" onClick={()=>remove(p._id)}>Delete</button>
-                  </td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-      </div>
-
-      {showModal && (
-        <Modal title={editing ? 'Edit Patient' : 'Add Patient'} onClose={()=>setShowModal(false)}>
-          <div className="space-y-2">
-            <input className="w-full border p-2" placeholder="Patient ID" value={form.patientId||''} onChange={e=>setForm(s=>({ ...s, patientId: e.target.value }))} />
-            <div className="grid grid-cols-2 gap-2">
-              <input className="border p-2" placeholder="First name" value={form.personalInfo?.firstName||''} onChange={e=>setForm(s=>({ ...s, personalInfo:{ ...s.personalInfo, firstName: e.target.value } }))} />
-              <input className="border p-2" placeholder="Last name" value={form.personalInfo?.lastName||''} onChange={e=>setForm(s=>({ ...s, personalInfo:{ ...s.personalInfo, lastName: e.target.value } }))} />
-            </div>
-            <div className="grid grid-cols-2 gap-2">
-              <input className="border p-2" placeholder="Gender" value={form.personalInfo?.gender||''} onChange={e=>setForm(s=>({ ...s, personalInfo:{ ...s.personalInfo, gender: e.target.value } }))} />
-              <input className="border p-2" placeholder="Phone" value={form.personalInfo?.phone||''} onChange={e=>setForm(s=>({ ...s, personalInfo:{ ...s.personalInfo, phone: e.target.value } }))} />
-            </div>
-            <input className="border p-2" placeholder="Age" value={form.age||''} onChange={e=>setForm(s=>({ ...s, age: e.target.value }))} />
-            <div className="flex justify-end mt-3">
-              <button className="btn mr-2" onClick={()=>setShowModal(false)}>Cancel</button>
-              <button className="btn btn-primary" onClick={save}>{editing ? 'Update' : 'Create'}</button>
-            </div>
-          </div>
-        </Modal>
-      )}
-    </div>
-  )
-}
+<script src="../js/api.js"></script>
+<script src="../js/common.js"></script>
+<script src="../js/portal-patient.js"></script>
+</body>
+</html>
